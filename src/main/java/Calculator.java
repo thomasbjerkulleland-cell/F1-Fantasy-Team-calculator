@@ -101,7 +101,7 @@ public class Calculator {
         while(true){
             System.out.print("\033[H\033[2J");
             System.out.flush();
-            System.out.println("****************MODES****************");
+            System.out.println("****************Configuration****************");
             System.out.println("1: Run with current settings (none default)");
             System.out.println("2: Change spending budget");
             System.out.println("3: Change owned drivers");
@@ -120,15 +120,15 @@ public class Calculator {
             else if(mode.equals("2")){
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
-                System.out.println("Enter new budget:");
-                String spending = input.nextLine();
+                System.out.println("Enter new budget: (format: 100000000 or 100 000 000 or 100.000.000)");
+                String spending = input.nextLine().replaceAll("\\s+", " ").replaceAll(" ", "").replaceAll(".", "");
                 budget = Integer.parseInt(spending);
             }
             else if(mode.equals("3")){
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
                 System.out.println("Enter owned drivers (format: lastnames separated by spaces):");
-                String[] owned = input.nextLine().toLowerCase().split(" ");
+                String[] owned = input.nextLine().toLowerCase().replaceAll("\\s+", " ").split(" ");
                 for(String name : owned){
                     setDrivers.add(findDriverByName(name));
                     allDrivers.remove(findDriverByName(name));
@@ -263,7 +263,7 @@ public class Calculator {
         allDrivers.add(new Driver("Norris", 28200000, 158));
         allDrivers.add(new Driver("Piastri", 24700000, 157));
         allDrivers.add(new Driver("Leclerc", 27100000, 144));
-        allDrivers.add(new Driver("Russel", 25800000, 156));
+        allDrivers.add(new Driver("Russell", 25800000, 156));
         allDrivers.add(new Driver("Verstappen", 29400000, 161));
         allDrivers.add(new Driver("Hamilton", 21600000, 135));
         allDrivers.add(new Driver("Alonso", 13400000, 116));

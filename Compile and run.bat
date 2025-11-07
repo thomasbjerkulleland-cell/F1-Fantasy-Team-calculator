@@ -1,5 +1,3 @@
-setlocal
-
 set JAR=target\calculator-run.jar
 
 if not exist "%JAR%" (
@@ -26,5 +24,3 @@ if "%REBUILD%"=="true" (
 
 :run
 cmd /c "java -cp %JAR% Calculator"
-
-endlocal
