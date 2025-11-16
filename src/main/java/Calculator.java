@@ -6,7 +6,7 @@ public class Calculator {
     static ArrayList<Driver> allDrivers = new ArrayList<>();
     static ArrayList<Constructor> allConstructors = new ArrayList<>();
     
-    static int budget = 122603000; //MONEY TO SPEND!
+    static int budget = 122603000; //MONEY TO SPEND!!!
 
     //User defined settings for predefined drivers and constructor
     static ArrayList<Driver> setDrivers = new ArrayList<>();
@@ -132,10 +132,10 @@ public class Calculator {
             else if(mode.equals("2")){
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
-                System.out.println("Enter new budget: (format: 100000000 or 100 000 000 or 100.000.000)");
+                System.out.println("Enter new budget (format: 100000000 or 100 000 000 or 100.000.000):");
                 //Make formating its own method?
-                String spending = input.nextLine().replaceAll("\\s+", " ").replaceAll(" ", "").replaceAll(".", "");
-                budget = Integer.parseInt(spending);
+                String spending = input.nextLine();
+                budget = Integer.parseInt(spending.replaceAll("[\\s.]", ""));
             }
             else if(mode.equals("3")){
                 System.out.print("\033[H\033[2J");
