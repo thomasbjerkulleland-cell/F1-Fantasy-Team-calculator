@@ -3,8 +3,9 @@ import java.util.Scanner;
 
 public class Calculator {
     //Lists of all available drivers and constructors
-    static ArrayList<Driver> allDrivers = new ArrayList<>();
-    static ArrayList<Constructor> allConstructors = new ArrayList<>();
+    //Driver and constructor objects instanciated in Driver.java and Constructor.java respectively for cleanliness
+    static ArrayList<Driver> driversList = new Drivers().drivers;
+    static ArrayList<Constructor> constructorsList = new Constructors().constructors;
     
     static int budget = 122603000; //MONEY TO SPEND!!!
 
@@ -16,10 +17,10 @@ public class Calculator {
     static ArrayList<Team> teams = new ArrayList<>();
     
     public static void main(String[] args) throws Exception {
-        fillArrays();
-        
+        //Starts the input loop for users to configure the search settings
         System.out.println("Welcome to the F1 Fantasy Team Calculator!");
         userInputLoop();
+        //Config is done and we start generating teams
         long start = System.nanoTime();
         createTeams();
         long end = System.nanoTime();
@@ -52,7 +53,7 @@ public class Calculator {
     }
 
     public static void createTeams(){
-        for(Constructor cons : allConstructors){
+        for(Constructor cons : constructorsList){
             Team myTeam = new Team();
             myTeam.addCons(cons);
             for(Driver driver : setDrivers){
@@ -70,8 +71,8 @@ public class Calculator {
             return;
         }
 
-        for (int i = filled; i < allDrivers.size(); i++) {
-            myTeam.addDriver(allDrivers.get(i));
+        for (int i = filled; i < driversList.size(); i++) {
+            myTeam.addDriver(driversList.get(i));
             recursion(myTeam, i + 1);
             myTeam.removeDriver(myTeam.drivers.get(myTeam.drivers.size()-1));
         }
@@ -92,19 +93,19 @@ public class Calculator {
     }
 
     private static Constructor findConsByName(String name){
-        for(Constructor cons : allConstructors){
+        for(Constructor cons : constructorsList){
             if(cons.name.toLowerCase().equals(name)) return cons;
         }
 
-        return allConstructors.get(0);
+        return constructorsList.get(0);
     }
 
     private static Driver findDriverByName(String name){
-        for(Driver driver : allDrivers){
+        for(Driver driver : driversList){
             if(driver.name.toLowerCase().equals(name)) return driver;
         }
 
-        return allDrivers.get(0);
+        return driversList.get(0);
     }
 
     private static void userInputLoop(){
@@ -145,7 +146,7 @@ public class Calculator {
                 String[] owned = input.nextLine().toLowerCase().replaceAll("\\s+", " ").split(" ");
                 for(String name : owned){
                     setDrivers.add(findDriverByName(name));
-                    allDrivers.remove(findDriverByName(name));
+                    driversList.remove(findDriverByName(name));
                 }
             }
             else if(mode.equals("4")){
@@ -165,7 +166,7 @@ public class Calculator {
                 ArrayList<Driver> driversToRemove = new ArrayList<>();
 
                 for(int i = 0; i < lockedLen; i++) driversToRemove.add(findDriverByName(locked[i]));
-                for(Driver driver : driversToRemove) allDrivers.remove(driver);
+                for(Driver driver : driversToRemove) driversList.remove(driver);
             }
             else if(mode.equals("6")){
                 System.out.print("\033[H\033[2J");
@@ -173,7 +174,7 @@ public class Calculator {
                 System.out.println("Enter locked constructor:");
 
                 String locked = input.nextLine().toLowerCase();
-                allConstructors.remove(findConsByName(locked));
+                constructorsList.remove(findConsByName(locked));
             }
             else if(mode.equals("q")){
                 input.close();
@@ -182,41 +183,5 @@ public class Calculator {
             }
         }
         input.close();
-    }
-    
-    public static void fillArrays(){
-        allDrivers.add(new Driver("Norris", 28200000, 158));
-        allDrivers.add(new Driver("Piastri", 24700000, 157));
-        allDrivers.add(new Driver("Leclerc", 27100000, 144));
-        allDrivers.add(new Driver("Russell", 25800000, 156));
-        allDrivers.add(new Driver("Verstappen", 29400000, 161));
-        allDrivers.add(new Driver("Hamilton", 21600000, 135));
-        allDrivers.add(new Driver("Alonso", 13400000, 116));
-        allDrivers.add(new Driver("Albon", 15700000, 129));
-        allDrivers.add(new Driver("Hulkenberg", 8900000, 113));
-        allDrivers.add(new Driver("Lawson", 13300000, 111));
-        allDrivers.add(new Driver("Antonelli", 19300000, 128));
-        allDrivers.add(new Driver("Hadjar", 14600000, 121));
-        allDrivers.add(new Driver("Bortoleto", 12500000, 107));
-        allDrivers.add(new Driver("Gasly", 6000000, 102));
-        allDrivers.add(new Driver("Bearman", 18800000, 120));
-        allDrivers.add(new Driver("Ocon", 11000000, 112));
-        allDrivers.add(new Driver("Stroll", 10800000, 110));
-        allDrivers.add(new Driver("Sainz", 12100000, 112));
-        allDrivers.add(new Driver("Tsunoda", 15300000, 114));
-        allDrivers.add(new Driver("Colapinto", 6300000, 90));
-
-
-        allConstructors.add(new Constructor("McLaren", 27900000, 165));
-        allConstructors.add(new Constructor("Ferrari", 24700000, 142));
-        allConstructors.add(new Constructor("Mercedes", 24200000, 142));
-        allConstructors.add(new Constructor("Red Bull", 23300000, 136));
-        allConstructors.add(new Constructor("Racing Bulls", 14600000, 113));
-        allConstructors.add(new Constructor("Aston Martin", 13500000, 105));
-        allConstructors.add(new Constructor("Kick Sauber", 12400000, 100));
-        allConstructors.add(new Constructor("Williams", 13300000, 113));
-        allConstructors.add(new Constructor("Haas", 14300000, 106));
-        allConstructors.add(new Constructor("Alpine", 6000000, 92));
-
     }
 }
