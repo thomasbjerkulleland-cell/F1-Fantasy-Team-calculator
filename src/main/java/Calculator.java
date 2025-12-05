@@ -8,6 +8,7 @@ public class Calculator {
     static ArrayList<Constructor> constructorsList = new Constructors().constructors;
     
     static int budget = 122603000; //MONEY TO SPEND!!!
+    static int nextRoundNumber = -1; //If -1, no track conditions are considered
 
     //User defined settings for predefined drivers and constructor
     static ArrayList<Driver> setDrivers = new ArrayList<>();
@@ -121,6 +122,7 @@ public class Calculator {
             System.out.println("4: Change owned constructor");
             System.out.println("5: Change unavailable drivers");
             System.out.println("6: Change unavailable constructor");
+            System.out.println("7: Specify next race (if left out track conditions are not considered)");
             System.out.println("q: Terminate the program");
 
             String mode = input.nextLine();
@@ -175,6 +177,13 @@ public class Calculator {
 
                 String locked = input.nextLine().toLowerCase();
                 constructorsList.remove(findConsByName(locked));
+            }
+            else if(mode.equals("7")){
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+                System.out.println("Enter the number of the next race (format: 13):");
+
+                nextRoundNumber = Integer.parseInt(input.nextLine());
             }
             else if(mode.equals("q")){
                 input.close();
