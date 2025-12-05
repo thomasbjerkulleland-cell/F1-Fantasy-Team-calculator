@@ -1,3 +1,4 @@
+### NOTE: Main branch is heavily a work in progress currently, to run a stable version of the program use the "Legacy_version_stored" branch instead
 # F1 Fantasy Team calculator (Gridrivals)
 ### Driver points and cost updated after: Mexican GP 2025
 A java-based calculator to help with picking the best team you can based on your current budget. The program looks at driver's current average points over the season and their current cost, and creates the teams with the highest combined average points per weekend. 
